@@ -1,0 +1,72 @@
+# Configuration file for AI Code Security Analyzer
+
+# Model Configuration
+model:
+  name: "microsoft/codebert-base"  # Pre-trained model to use
+  max_length: 512                   # Maximum sequence length
+  num_labels: 2                     # Binary classification: vulnerable/safe
+  cache_dir: "./models/pretrained"  # Where to cache downloaded models
+
+# Training Configuration
+training:
+  batch_size: 8                     # Batch size for training
+  eval_batch_size: 16               # Batch size for evaluation
+  learning_rate: 2e-5               # Learning rate
+  num_epochs: 3                     # Number of training epochs
+  warmup_steps: 500                 # Warmup steps for learning rate
+  weight_decay: 0.01                # Weight decay for regularization
+  save_steps: 1000                  # Save checkpoint every N steps
+  logging_steps: 100                # Log metrics every N steps
+  evaluation_strategy: "epoch"      # When to evaluate (epoch/steps)
+  save_total_limit: 2               # Keep only last N checkpoints
+
+# Data Configuration
+data:
+  train_split: 0.8                  # Training data percentage
+  val_split: 0.1                    # Validation data percentage
+  test_split: 0.1                   # Test data percentage
+  dataset_name: "devign"            # Dataset to use
+  max_samples: null                 # Limit samples (null = use all)
+  shuffle: true                     # Shuffle data
+
+# API Configuration
+api:
+  host: "0.0.0.0"                   # API host
+  port: 5000                        # API port
+  debug: true                       # Debug mode
+  cors_enabled: true                # Enable CORS
+
+# UI Configuration
+ui:
+  title: "AI Code Security Analyzer"
+  port: 8501
+  theme: "light"                    # light or dark
+
+# Security Scoring
+security:
+  severity_weights:
+    CRITICAL: 30                    # Weight for critical vulnerabilities
+    HIGH: 20                        # Weight for high severity
+    MEDIUM: 10                      # Weight for medium severity
+    LOW: 5                          # Weight for low severity
+
+# Vulnerability Types (based on OWASP Top 10)
+vulnerability_types:
+  - sql_injection
+  - xss
+  - command_injection
+  - hardcoded_credentials
+  - path_traversal
+  - insecure_deserialization
+  - xxe
+  - broken_authentication
+  - sensitive_data_exposure
+  - insufficient_logging
+
+# Paths
+paths:
+  data_raw: "data/raw"
+  data_processed: "data/processed"
+  models: "models"
+  logs: "logs"
+  outputs: "outputs"
