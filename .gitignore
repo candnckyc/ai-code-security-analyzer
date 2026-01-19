@@ -194,3 +194,19 @@ data/processed/
 
 # Keep directory structure
 !.gitkeep
+
+# Dataset files
+data/raw/
+data/processed/
+*.arrow
+*.json
+dataset_info.json
+state.json
+
+# Model files
+models/finetuned/
+models/pretrained/
+
+# Python cache
+__pycache__/
+*.pyc
